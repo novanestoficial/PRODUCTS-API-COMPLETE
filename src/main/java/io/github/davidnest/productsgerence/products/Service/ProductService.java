@@ -3,6 +3,7 @@ package io.github.davidnest.productsgerence.products.Service;
 
 import io.github.davidnest.productsgerence.products.Entity.Product;
 import io.github.davidnest.productsgerence.products.Repository.ProductRepository;
+import io.github.davidnest.productsgerence.products.exception.ProductNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ProductService {
 
     public Product updateProduct(Long id, Product product) {
         Product existing = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ProductNotFoundException(id));
 
         existing.setName(product.getName());
         existing.setDescription(product.getDescription());
