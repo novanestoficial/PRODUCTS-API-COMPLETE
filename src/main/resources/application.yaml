@@ -2,10 +2,9 @@ spring:
   application:
     name: Products Gerence
   datasource:
-    url: jdbc:h2:mem:prducts
+    url: jdbc:h2:mem:products
     username: sa
     password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
   h2:

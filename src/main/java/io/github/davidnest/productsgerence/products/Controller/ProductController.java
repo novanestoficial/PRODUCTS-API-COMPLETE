@@ -1,6 +1,7 @@
 package io.github.davidnest.productsgerence.products.Controller;
 
 
+import io.github.davidnest.productsgerence.products.DTO.ProductDTO;
 import io.github.davidnest.productsgerence.products.Entity.Product;
 import io.github.davidnest.productsgerence.products.Service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -17,22 +18,32 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-    
+
     @PostMapping
-    public Product save(@RequestBody  Product product) {
+    public Product save(@RequestBody Product product) {
         return productService.saveProduct(product);
     }
-    
+
+    @PostMapping("/batch")
+    public List<Product> saveAll(@RequestBody List<Product> products) {
+        return productService.saveProducts(products);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         return productService.findById(id)
+                .map(ProductDTO::fromEntity)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll() {
-        return ResponseEntity.ok(productService.findAllProducts());
+    public ResponseEntity<List<ProductDTO>> findAll() {
+        List<ProductDTO> products = productService.findAllProducts()
+                .stream()
+                .map(ProductDTO::fromEntity)
+                .toList();
+        return ResponseEntity.ok(products);
     }
 
     @PutMapping("/{id}")
