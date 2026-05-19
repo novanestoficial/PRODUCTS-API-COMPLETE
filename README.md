@@ -6,7 +6,7 @@ API REST para gerenciamento de produtos desenvolvida com Java e Spring Boot.
 - Java 17
 - Spring Boot
 - Spring Data JPA
-- PostgreSQL
+- H2(SQL)
 - Lombok
 
 ## ▶️ Como executar
