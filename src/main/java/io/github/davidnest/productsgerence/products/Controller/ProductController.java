@@ -4,6 +4,7 @@ package io.github.davidnest.productsgerence.products.Controller;
 import io.github.davidnest.productsgerence.products.DTO.ProductDTO;
 import io.github.davidnest.productsgerence.products.Entity.Product;
 import io.github.davidnest.productsgerence.products.Service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product save(@RequestBody Product product) {
+    public Product save(@RequestBody @Valid Product product) {
         return productService.saveProduct(product);
     }
 
@@ -47,7 +48,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody @Valid Product product) {
         return ResponseEntity.ok(productService.updateProduct(id, product));
     }
 
